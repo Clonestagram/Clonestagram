@@ -40,6 +40,7 @@ public class ProfileService {
 
         // 조회된 사용자 정보를 DTO로 변환하여 반환
         return new UserProfileDto(
+                user.getId(),
                 user.getUsername(),
                 user.getEmail(),
                 user.getBio(),
@@ -56,58 +57,28 @@ public class ProfileService {
      * @return 수정된 사용자 객체
      * @throws IllegalArgumentException 사용자가 존재하지 않으면 예외 발생
      */
-    @Transactional // 트랜잭션을 관리하여 데이터 무결성을 보장
-    public User updateUserProfile(Long userId, UserProfileUpdateDto userProfileUpdateDto) {
-        // 사용자 정보를 DB에서 조회, 존재하지 않으면 예외 발생
+    @Transactional
+    public UserProfileDto updateUserProfile(Long userId, UserProfileUpdateDto userProfileUpdateDto) {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new IllegalArgumentException("User not found"));
 
-        // 사용자명 업데이트
-        if (userProfileUpdateDto.getUsername() != null && !userProfileUpdateDto.getUsername().isEmpty()) {
+        if (userProfileUpdateDto.getUsername() != null) {
             user.setUsername(userProfileUpdateDto.getUsername());
         }
-
-        // 이메일 업데이트
-        if (userProfileUpdateDto.getEmail() != null && !userProfileUpdateDto.getEmail().isEmpty()) {
+        if (userProfileUpdateDto.getEmail() != null) {
             user.setEmail(userProfileUpdateDto.getEmail());
         }
-
-        /*
-        // 비밀번호 업데이트 (추후 기능 추가 예정)
-        if (userProfileUpdateDto.getPassword() != null && !userProfileUpdateDto.getPassword().isEmpty()) {
-            user.setPassword(passwordEncoder.encode(userProfileUpdateDto.getPassword()));
-        }
-        */
-
-        // 자기소개(bio) 업데이트
-        if (userProfileUpdateDto.getBio() != null && !userProfileUpdateDto.getBio().isEmpty()) {
+        if (userProfileUpdateDto.getBio() != null) {
             user.setBio(userProfileUpdateDto.getBio());
         }
 
-        // 프로필 이미지 업데이트
-        if (userProfileUpdateDto.getProfileImage() != null && !userProfileUpdateDto.getProfileImage().isEmpty()) {
-            // MultipartFile을 ImageUploadReqDto로 변환하여 이미지 업로드 요청
-            ImageUploadReqDto imageUploadReqDto = new ImageUploadReqDto();
-            imageUploadReqDto.setFile(userProfileUpdateDto.getProfileImage());  // MultipartFile을 set
+        User updatedUser = userRepository.save(user);
 
-            try {
-                // 이미지 업로드 서비스 호출
-                ImageUploadResDto imageUploadResDto = imageService.imageUpload(imageUploadReqDto, user.getId());
-
-                // 이미지 URL 생성 (업로드된 파일 이름을 사용하여 경로 설정)
-                String imageUrl = "/uploads/" + imageUploadResDto.getContent(); // 적합한 경로를 설정
-
-                // 프로필 이미지 URL로 업데이트
-                user.setProfileimg(imageUrl);
-            } catch (Exception e) {
-                // 예외 처리: 예외 메시지 로그 출력, 사용자에게 에러 메시지 전달 등
-                e.printStackTrace();
-                throw new RuntimeException("프로필 이미지 업로드 실패: " + e.getMessage());
-            }
-        }
-
-        // 변경된 사용자 정보 저장 후 반환
-        return userRepository.save(user);
+        // ✅ DTO로 변환하여 반환
+        return UserProfileDto.fromEntity(updatedUser);
     }
+
+
+
 
 }

@@ -35,11 +35,8 @@ public class ProfileController {
      */
     @GetMapping("/{userId}/profile")  // {userId}는 URL 경로에 포함되어 전달된 사용자 ID입니다.
     public ResponseEntity<UserProfileDto> getUserProfile(@PathVariable Long userId) {
-        // userId를 이용해 해당 사용자의 프로필을 조회합니다.
         UserProfileDto userProfileDto = profileService.getUserProfile(userId);
-
-        // 조회된 프로필 정보를 클라이언트에게 전달합니다. ResponseEntity는 HTTP 응답을 감싸는 객체입니다.
-        return ResponseEntity.ok(userProfileDto);  // HTTP 200 OK 상태로 반환합니다.
+        return ResponseEntity.ok(userProfileDto);
     }
 
     /**
@@ -56,12 +53,13 @@ public class ProfileController {
      * 수정된 사용자 정보를 클라이언트에게 반환합니다.
      */
     @PutMapping("/{userId}/profile")  // {userId}는 URL 경로에 포함되어 수정할 사용자 ID를 전달합니다.
-    public ResponseEntity<User> updateUserProfile(@PathVariable Long userId,
-                                                  @RequestBody UserProfileUpdateDto userProfileUpdateDto) {
-        // 사용자가 입력한 수정 정보를 기반으로 프로필을 업데이트합니다.
-        User updatedUser = profileService.updateUserProfile(userId, userProfileUpdateDto);
+    public ResponseEntity<UserProfileDto> updateUserProfile(
+            @PathVariable Long userId,
+            @RequestBody UserProfileUpdateDto userProfileUpdateDto) {
 
-        // 수정된 사용자 정보를 클라이언트에게 전달합니다.
-        return ResponseEntity.ok(updatedUser);  // HTTP 200 OK 상태로 수정된 정보를 반환합니다.
+        // ✅ 업데이트 후 DTO 반환
+        UserProfileDto updatedUserProfile = profileService.updateUserProfile(userId, userProfileUpdateDto);
+
+        return ResponseEntity.ok(updatedUserProfile);
     }
 }

@@ -1,10 +1,11 @@
-package com.goorm.clonestagram.service;
+package com.goorm.clonestagram.comment.service;
 
-import com.goorm.clonestagram.domain.CommentEntity;
-import com.goorm.clonestagram.domain.PostEntity;
-import com.goorm.clonestagram.repository.CommentRepository;
-import com.goorm.clonestagram.repository.PostRepository;
-import com.goorm.clonestagram.repository.UserRepository;
+import com.goorm.clonestagram.comment.domain.CommentEntity;
+import com.goorm.clonestagram.comment.domain.PostEntity;
+import com.goorm.clonestagram.comment.repository.CommentRepository;
+import com.goorm.clonestagram.comment.repository.PostRepository;
+import com.goorm.clonestagram.comment.repository.UserRepository;
+import com.goorm.clonestagram.comment.service.CommentService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -13,8 +14,6 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import com.goorm.clonestagram.util.CustomTestLogger;
 
-import java.time.Instant;
-import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;

@@ -1,6 +1,6 @@
-package com.goorm.clonestagram.repository;
+package com.goorm.clonestagram.comment.repository;
 
-import com.goorm.clonestagram.domain.UserEntity;
+import com.goorm.clonestagram.comment.domain.UserEntity;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

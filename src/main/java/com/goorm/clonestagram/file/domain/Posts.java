@@ -1,6 +1,6 @@
 package com.goorm.clonestagram.file.domain;
 
-import com.goorm.clonestagram.common.base.BaseTimeEntity;
+import com.goorm.clonestagram.user.common.base.BaseTimeEntity;
 import com.goorm.clonestagram.file.ContentType;
 import com.goorm.clonestagram.user.domain.User;
 import jakarta.persistence.*;

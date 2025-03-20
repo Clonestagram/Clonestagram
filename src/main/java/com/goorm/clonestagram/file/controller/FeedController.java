@@ -2,7 +2,7 @@ package com.goorm.clonestagram.file.controller;
 
 import com.goorm.clonestagram.file.dto.FeedResDto;
 import com.goorm.clonestagram.file.service.FeedService;
-import com.goorm.clonestagram.util.TempUserDetail;
+import com.goorm.clonestagram.user.util.TempUserDetail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;

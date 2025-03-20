@@ -1,4 +1,4 @@
-package com.goorm.clonestagram.util;
+package com.goorm.clonestagram.user.util;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

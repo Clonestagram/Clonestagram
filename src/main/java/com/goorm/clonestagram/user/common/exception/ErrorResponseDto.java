@@ -1,4 +1,4 @@
-package com.goorm.clonestagram.common.exception;
+package com.goorm.clonestagram.user.common.exception;
 
 import lombok.*;
 

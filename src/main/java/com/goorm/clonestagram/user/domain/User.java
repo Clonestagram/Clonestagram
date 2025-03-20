@@ -1,7 +1,7 @@
 package com.goorm.clonestagram.user.domain;
 
 
-import com.goorm.clonestagram.common.base.BaseTimeEntity;
+import com.goorm.clonestagram.user.common.base.BaseTimeEntity;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Email;
 import lombok.*;
@@ -54,6 +54,10 @@ public class User extends BaseTimeEntity { // BaseTimeEntity를 상속받아 cre
     @CreationTimestamp
     @Column(name = "updated_at", nullable = false)
     private LocalDateTime updatedAt;
+
+    public User(String testuser2, String password456, String mail, String url, String s) {
+        super();
+    }
 
      /*
 

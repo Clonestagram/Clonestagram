@@ -19,4 +19,7 @@ public class UserProfileUpdateDto {
     private String bio; // 자기소개
     private MultipartFile profileImage; // 프로필 이미지
     private String password; // 비밀번호
+
+    public UserProfileUpdateDto(String newUser, String mail, String 새로운_자기소개, String url) {
+    }
 }

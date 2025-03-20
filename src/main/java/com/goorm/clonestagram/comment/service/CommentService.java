@@ -1,16 +1,13 @@
-package com.goorm.clonestagram.service;
-import com.goorm.clonestagram.domain.PostEntity;
-import com.goorm.clonestagram.domain.CommentEntity;
-import com.goorm.clonestagram.repository.CommentRepository;
-import com.goorm.clonestagram.repository.PostRepository;
-import com.goorm.clonestagram.repository.UserRepository;
+package com.goorm.clonestagram.comment.service;
+import com.goorm.clonestagram.comment.domain.PostEntity;
+import com.goorm.clonestagram.comment.domain.CommentEntity;
+import com.goorm.clonestagram.comment.repository.CommentRepository;
+import com.goorm.clonestagram.comment.repository.PostRepository;
+import com.goorm.clonestagram.comment.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Isolation;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 

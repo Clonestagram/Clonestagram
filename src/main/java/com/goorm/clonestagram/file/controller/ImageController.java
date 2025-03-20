@@ -5,7 +5,7 @@ import com.goorm.clonestagram.file.dto.ImageUpdateResDto;
 import com.goorm.clonestagram.file.dto.ImageUploadReqDto;
 import com.goorm.clonestagram.file.dto.ImageUploadResDto;
 import com.goorm.clonestagram.file.service.ImageService;
-import com.goorm.clonestagram.util.TempUserDetail;
+import com.goorm.clonestagram.user.util.TempUserDetail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;

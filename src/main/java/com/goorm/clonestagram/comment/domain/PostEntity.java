@@ -1,4 +1,4 @@
-package com.goorm.clonestagram.domain;
+package com.goorm.clonestagram.comment.domain;
 
 import jakarta.persistence.*;
 import jdk.jshell.Snippet;
