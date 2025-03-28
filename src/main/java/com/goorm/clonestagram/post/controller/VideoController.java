@@ -65,9 +65,11 @@ public class VideoController {
     @PutMapping(value = "/video/{postSeq}")
     public ResponseEntity<VideoUpdateResDto> videoUpdate(@PathVariable("postSeq") Long postSeq,
                                                          @AuthenticationPrincipal TempUserDetail userDetail,
-                                                         VideoUpdateReqDto videoUpdateReqDto){
+                                                         VideoUpdateReqDto videoUpdateReqDto,
+                                                         @RequestParam Long userId
+    ){
 
-        Long userId = userDetail.getId();
+//        Long userId = userDetail.getId();
 
 //        if(videoUpdateReqDto.getFile() != null && !videoUpdateReqDto.getFile().getContentType().toLowerCase().startsWith("video/")){
 //            throw new IllegalArgumentException("영상을 업로드해 주세요");

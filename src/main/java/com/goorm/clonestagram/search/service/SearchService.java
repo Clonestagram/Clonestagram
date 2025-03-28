@@ -9,6 +9,7 @@ import com.goorm.clonestagram.hashtag.repository.PostHashTagRepository;
 import com.goorm.clonestagram.search.dto.HashtagSuggestionDto;
 import com.goorm.clonestagram.search.dto.SearchPostResDto;
 import com.goorm.clonestagram.search.dto.SearchUserResDto;
+import com.goorm.clonestagram.search.dto.UserSuggestionDto;
 import com.goorm.clonestagram.user.domain.User;
 import com.goorm.clonestagram.user.dto.UserProfileDto;
 import com.goorm.clonestagram.user.repository.UserRepository;
@@ -135,6 +136,7 @@ public class SearchService {
 //        2. 반환을 위해 users를 UserProfileDto형태로 변환
         Page<PostInfoDto> userProfileDtos = tagPosts.map(posts -> PostInfoDto.builder()
                 .id(posts.getId())
+                .userId(posts.getUser().getId())
                 .content(posts.getContent())
                 .mediaName(posts.getMediaName())
                 .contentType(posts.getContentType())
@@ -155,4 +157,17 @@ public class SearchService {
                 .map(tag -> new HashtagSuggestionDto(tag.getTagContent(), postHashTagRepository.countByHashTags(tag)))
                 .collect(Collectors.toList());
     }
+
+    public List<UserSuggestionDto> getUserSuggestions(String keyword) {
+        List<User> users = userRepository.findByUsernameContainingIgnoreCaseAndDeletedIsFalse(keyword);
+
+        return users.stream()
+                .map(user -> new UserSuggestionDto(
+                        user.getUsername(),
+                        user.getProfileimg(),
+                        user.getBio() // 또는 displayName 대체 가능
+                ))
+                .collect(Collectors.toList());
+    }
+
 }

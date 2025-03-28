@@ -43,6 +43,7 @@ public class Posts{
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
+
     /**
      * 게시물 내용
      * - 이미지에 대한 설명 또는 글 내용

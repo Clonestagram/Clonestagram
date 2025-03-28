@@ -15,7 +15,8 @@ import java.time.LocalDateTime;
 @Getter
 @Builder
 public class PostInfoDto {
-    private Long id;
+    private Long id;         // 게시글 ID
+    private Long userId;         // 작성자 ID
     private String content;
     private String mediaName;
     private ContentType contentType;
@@ -31,6 +32,7 @@ public class PostInfoDto {
     public static PostInfoDto fromEntity(Posts post) {
         return PostInfoDto.builder()
                 .id(post.getId())
+                .userId(post.getUser().getId())
                 .content(post.getContent())
                 .mediaName(post.getMediaName())
                 .contentType(post.getContentType())

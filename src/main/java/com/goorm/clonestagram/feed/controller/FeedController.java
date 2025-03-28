@@ -27,9 +27,13 @@ public class FeedController {
     public ResponseEntity<Page<FeedResponseDto>> getMyFeed(
             @AuthenticationPrincipal TempUserDetail userDetails,
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "20") int size
+            @RequestParam(defaultValue = "20") int size,
+            @RequestParam Long userId
     ) {
-        Page<FeedResponseDto> feedPage = feedService.getUserFeed(userDetails.getId(), page, size);
+//        Page<FeedResponseDto> feedPage = feedService.getUserFeed(userDetails.getId(), page, size);
+//        return ResponseEntity.ok(feedPage);
+
+        Page<FeedResponseDto> feedPage = feedService.getUserFeed(userId, page, size);
         return ResponseEntity.ok(feedPage);
     }
 

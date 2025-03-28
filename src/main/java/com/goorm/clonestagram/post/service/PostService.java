@@ -4,6 +4,7 @@ import com.goorm.clonestagram.post.domain.Posts;
 import com.goorm.clonestagram.post.dto.PostResDto;
 import com.goorm.clonestagram.post.dto.PostInfoDto;
 import com.goorm.clonestagram.post.repository.PostsRepository;
+import com.goorm.clonestagram.post.repository.SoftDeleteRepository;
 import com.goorm.clonestagram.user.domain.User;
 import com.goorm.clonestagram.user.dto.UserProfileDto;
 import com.goorm.clonestagram.user.repository.UserRepository;
@@ -26,6 +27,7 @@ public class PostService {
 
     private final UserRepository userRepository;
     private final PostsRepository postsRepository;
+    private final SoftDeleteRepository softDeleteRepository;
     /**
      * 본인 게시물 조회
      * 유저 id를 활용해 유저 정보 조회
@@ -41,7 +43,7 @@ public class PostService {
                 .orElseThrow(() -> new IllegalArgumentException("userId = " + userId + " 인 유저가 존재하지 않습니다"));
 
         //2. 해당 유저가 작성한 모든 피드 조회, 페이징 처리
-        Page<Posts> myFeed = postsRepository.findAllByUserIdAndDeletedIsFalse(user.getId(), pageable);
+        Page<Posts> myFeed = softDeleteRepository.findAllByUserIdAndNotSoftDeleted(user.getId(), pageable);
 
         //3. 모든 작업이 완료도니 경우 응답 반환
         return PostResDto.builder()
@@ -49,6 +51,16 @@ public class PostService {
                 .feed(myFeed.map(PostInfoDto::fromEntity))
                 .build();
     }
+
+
+    public PostInfoDto getPostById(Long postId) {
+        Posts post = postsRepository.findByIdAndDeletedIsFalse(postId)
+                .orElseThrow(() -> new IllegalArgumentException("존재하지 않는 게시물입니다."));
+
+        return PostInfoDto.fromEntity(post); // 또는 PostMapper.toDto(post)
+    }
+
+
 
     /**
      * 모든 피드 조회

@@ -4,6 +4,7 @@ package com.goorm.clonestagram.search.controller;
 import com.goorm.clonestagram.search.dto.HashtagSuggestionDto;
 import com.goorm.clonestagram.search.dto.SearchPostResDto;
 import com.goorm.clonestagram.search.dto.SearchUserResDto;
+import com.goorm.clonestagram.search.dto.UserSuggestionDto;
 import com.goorm.clonestagram.search.service.SearchService;
 import com.goorm.clonestagram.util.TempUserDetail;
 import jakarta.validation.constraints.NotBlank;
@@ -103,5 +104,11 @@ public class SearchController {
     public ResponseEntity<List<HashtagSuggestionDto>> suggestHashtags(@RequestParam("keyword") String keyword) {
         return ResponseEntity.ok(searchService.getHashtagSuggestions(keyword));
     }
+
+    @GetMapping("/user/suggestions")
+    public ResponseEntity<List<UserSuggestionDto>> suggestUsers(@RequestParam("keyword") String keyword) {
+        return ResponseEntity.ok(searchService.getUserSuggestions(keyword));
+    }
+
 
 }

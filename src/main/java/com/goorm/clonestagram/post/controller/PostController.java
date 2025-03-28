@@ -1,5 +1,6 @@
 package com.goorm.clonestagram.post.controller;
 
+import com.goorm.clonestagram.post.dto.PostInfoDto;
 import com.goorm.clonestagram.post.dto.PostResDto;
 import com.goorm.clonestagram.post.service.PostService;
 import com.goorm.clonestagram.like.service.LikeService;
@@ -23,6 +24,13 @@ public class PostController {
     private final PostService feedService;
     private final LikeService likeService;
 
+
+    // 특정 게시물 상세 정보 조회
+    @GetMapping("/feeds/post/{postId}")
+    public ResponseEntity<PostInfoDto> getPostById(@PathVariable Long postId) {
+        return ResponseEntity.ok(feedService.getPostById(postId));
+    }
+
     /**
      * 본인 피드 조회
      * - 로그인 한 유저의 Id를 조회한 후 서비스 계층에 전달
@@ -32,12 +40,13 @@ public class PostController {
      * @return 조회 성공시 서비스 호출한 유저 정보와 피드 리스트 반환
      */
     //Todo TempUserDetail 변경
-    @GetMapping("/feeds/me")
+    @GetMapping("/feeds/{userId}")
     public ResponseEntity<PostResDto> myFeed(@AuthenticationPrincipal TempUserDetail userDetail,
-                                             @PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC)Pageable pageable
+                                             @PageableDefault(size = 20, sort = "createdAt", direction = Sort.Direction.DESC)Pageable pageable,
+                                             @PathVariable Long userId
 
     ){
-        Long userId = userDetail.getId();
+//        Long userId = userDetail.getId();
 
         return ResponseEntity.ok(feedService.getMyFeed(userId,pageable));
     }

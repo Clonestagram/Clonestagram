@@ -3,6 +3,7 @@ package com.goorm.clonestagram.feed.service;
 import com.goorm.clonestagram.feed.domain.Feed;
 import com.goorm.clonestagram.feed.dto.FeedResponseDto;
 import com.goorm.clonestagram.feed.repository.FeedRepository;
+import com.goorm.clonestagram.like.service.LikeService;
 import com.goorm.clonestagram.post.domain.Posts;
 import com.goorm.clonestagram.follow.domain.Follows;
 import com.goorm.clonestagram.follow.repository.FollowRepository;
@@ -17,6 +18,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class FeedService {
 
+    private final LikeService likeService;
     private final FeedRepository feedRepository;
     private final FollowRepository followRepository;
     /**
@@ -29,11 +31,12 @@ public class FeedService {
      */
     @Transactional
     public Page<FeedResponseDto> getUserFeed(Long userId, int page, int size) {
-        Pageable pageable = PageRequest.of(page, size, Sort.by("createdAt").descending());
-
-        Page<Feed> feeds = feedRepository.findByUserIdWithPostAndUser(userId, pageable);
-
-        return feeds.map(FeedResponseDto::from);
+        Pageable pageable = PageRequest.of(page, size, Sort.by(Sort.Direction.DESC, "createdAt"));
+        Page<Feed> feedPage = feedRepository.findByUserIdWithPostAndUser(userId, pageable);
+        return feedPage.map(feed -> {
+            Long likeCount = likeService.getLikeCount(feed.getPost().getId()); // ✅ 게시물 좋아요 수 조회
+            return FeedResponseDto.from(feed, likeCount);
+        });
     }
 
     /**

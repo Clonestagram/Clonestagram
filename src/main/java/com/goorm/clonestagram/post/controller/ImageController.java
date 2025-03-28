@@ -38,7 +38,8 @@ public class ImageController {
     @PostMapping(value = "/image", consumes = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<ImageUploadResDto> imageUpload(
             @AuthenticationPrincipal TempUserDetail userDetail,
-            @RequestBody ImageUploadReqDto imageUploadReqDto
+            @RequestBody ImageUploadReqDto imageUploadReqDto,
+            @RequestParam Long userId
     ) {
         try {
             log.info("👉 [imageUpload] 진입");
@@ -48,8 +49,8 @@ public class ImageController {
                 return ResponseEntity.status(403).build();
             }
 
-            Long userId = userDetail.getId();
-            log.info("✅ 인증된 사용자 ID: {}", userId);
+//            Long userId = userDetail.getId();
+//            log.info("✅ 인증된 사용자 ID: {}", userId);
 
             ImageUploadResDto result = imageService.imageUpload(imageUploadReqDto, userId);
             log.info("✅ 이미지 업로드 완료: {}", result);
