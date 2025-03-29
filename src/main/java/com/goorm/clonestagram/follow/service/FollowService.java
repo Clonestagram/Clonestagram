@@ -21,6 +21,11 @@ public class FollowService {
     private final UserRepository userRepository;
 
     @Transactional
+    public void deleteFollow(Long fromUserId, Long toUserId) {
+        followRepository.deleteByFromUserIdAndToUserId(fromUserId, toUserId);
+    }
+
+    @Transactional
     public void toggleFollow(Long fromUserId, Long toUserId) {
         if (fromUserId.equals(toUserId)) {
             throw new IllegalArgumentException("자기 자신을 팔로우할 수 없습니다.");

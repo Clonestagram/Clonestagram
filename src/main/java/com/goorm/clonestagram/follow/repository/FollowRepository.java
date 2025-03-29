@@ -44,5 +44,5 @@ public interface FollowRepository extends JpaRepository<Follows, Long> {
     @Query("SELECT f.fromUser FROM Follows f WHERE f.toUser.id = :toUserId AND f.fromUser.username LIKE %:keyword% AND f.fromUser.deleted = false")
     Page<User> findFollowerByKeyword(@Param("toUserId") Long toUserId, @Param("keyword") String keyword, Pageable pageable);
 
-
+    void deleteByFromUserIdAndToUserId(Long fromUserId, Long toUserId);
 }
