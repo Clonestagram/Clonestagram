@@ -10,7 +10,7 @@
 
 | 팀장 | 팀원 | 팀원 | 팀원 | 
 |:---:|:---:|:---:|:---:|
-| [**안형준**](https://github.com/Isonade2) | [**김윤영**](https://github.com/jisnag) | [**신정환**](https://github.com/ahn-h-j) | [**장효리**](https://github.com/SangJin521) |
+| [**안형준**](https://github.com/ahn-h-j) | [**김윤영**](https://github.com/yunrry) | [**신정환**](https://github.com/jeonghwan123) | [**장효리**](https://github.com/hyori526) |
 
 ---
 
